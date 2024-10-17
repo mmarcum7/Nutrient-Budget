@@ -1,10 +1,27 @@
-#Nitrogen
+#Example Nitrogen Transportation Dataframe
 NitrogenTransportation.df <- read.csv("",stringsAsFactors = TRUE)
+
+
+
+calc_n2o <- function(vehicle_type = c("car", "van", "bus", "biodiesel"){         #Vehicle type is the argument
+  if(vehicle_type == "car"){
+    return(N2O_emission <- df[df$vehicle_type == "car", "volume"] * df[df$vehicle_type == "car", "N2O Emmission Factor"])
+  } else if(vehicle_type == "van"){
+    return(N2O_emission <- df[df$vehicle_type == "van", "volume"] * df[df$vehicle_type == "van", "N2O Emmission Factor"])
+  } else if(vehicle_type == "bus") {
+    return(N2O_emission <- df[df$vehicle_type == "bus", "volume"] * df[df$vehicle_type == "bus", "N2O Emmission Factor"])
+  }else if (vehicle_type == "biodiesel") }
+  return(N2O_emission <- df[df$vehicle_type == "biodiesel", "volume"] * df[df$vehicle_type == "biodiesel", "N2O Emmission Factor"])
+  
+print(calc_n20("car")) #output is the N2O emmissions of car
+  
+
 
 N2OConversion <- #Institute value inserted here, converts N2O into N
 NOxConversion <- #Institute value inserted here, converts NOx into N
+  #Simap Used atomic weights to calcuislate: 0.6 and 0.3
 
-#Transportation Caculations
+#Transportation Calculations
 #Fleet via University (cars,vans,trucks,bus,biodiesel bus)####
 N2O_car <- NitrogenTransportation.df["volume","car"] *  NitrogenTransportation.df["N2O Emmission Factor","car"]
 NOx_car <- NitrogenTransportation.df["volume","car"] * NitrogenTransportation.df["Avergae Fuel Efficiency","car"] * NitrogenTransportation.df["NOxEmissionFactor","car"]
@@ -22,7 +39,7 @@ N2O_biobus <- NitrogenTransportation.df["volume","biobus"] *  NitrogenTransporta
 NOx_biobus <- NitrogenTransportation.df["volume","biobus"] * NitrogenTransportation.df["AvergaeFuelEfficiency","biobus"] * NitrogenTransportation.df["NOxEmissionFactor","biobus"]
 TotalN_biobus <- (N20_biobus * N2OConversion) + (NOx_biobus * NOxConversion)
 
-
+#Data Needed: Volume, N2O Emmission Factor, NOx Emmission Factor, Average Fuel Efficiency
 
 
 
@@ -93,7 +110,7 @@ NitrogenFertilizer.df <- read.csv("",stringsAsFactors = TRUE)
 
 
 
-#Fertilizer Caculations####
+#Fertilizer Calculations####
 NitrogenFertilizer.df <- read.csv("",stringsAsFactors = TRUE)
 TurfgrassUptake <- #Average fertilizer uptake of Turfgrass
 ShrubUptake <- #Average fertilizer uptake of Shrubs
