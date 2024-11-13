@@ -1,49 +1,75 @@
 #Example Nitrogen Transportation Dataframe
 NitrogenTransportation.df <- read.csv("",stringsAsFactors = TRUE)
 
-calc_n20 <- function
-  Vehicle_type, Fuel_volume,Fuel_Consumption) {
-}if (vehicle_type == "Institute car") {
-  Fuel_volume * 0.0006
+
+
+#'Title:Total N2O released 
+#' @param N_released_as_N2O-  N Released as N2O in kg, a function of fuel volume/fuel consupmtion multiplied by the mode of travel's n2o emmission factor 
+#' @param Vehicle_type - mode of transportation
+#' @param Fuel_volume - in gallons, the amount of gasoline held
+#' @param Fuel_Consumption - calculated for each commuter type before, amount of gasoline used in travel
+#'
+#' @return Amount of N2O Released
+#' @export  Total_N2O_Released
+#'
+#' @examples
+
+calc_n20 <- function(Vehicle_type, Fuel_volume,Fuel_consumption) {
+  if (Vehicle_type == "Institute car") {
+#0.006 kg/gals is N2O Emission Factor of a car 
+   return(Fuel_volume * 0.0006)
   
-} else if (vehicle_type == "Institute van") {
-  Fuel_volume * x
+} else if (Vehicle_type == "Institute van") {
+#x kg/gals is N2O Emission Factor of a van 
+  return(Fuel_volume * x)
   
-} else if (vehicle_type == "Institute biodiesel bus"){
-  Fuel_volume * 0.000675
+} else if (Vehicle_type == "Institute biodiesel bus"){
+#0.000675 kg/gals is N2O Emission Factor of a biodiesel bus
+  return(Fuel_volume * 0.000675)
   
-} else if (vehicle_type == "Institute bus"){
-  Fuel_volume * 0.00649
+} else if (Vehicle_type == "Institute bus"){
+#0.00649 kg/gals is N2O Emission Factor of an Institute bus 
+  return(Fuel_volume * 0.00649)
   
-} else if (vehicle_type == "Commuting Student Alone"
-  Fuel_Consumption * 0.0006
+} else if (Vehicle_type == "Commuting student alone") {
+#0.006 kg/gals is N2O Emission Factor of an car 
+  return(Fuel_consumption * 0.0006)
            
-} else if (vehicle_type == "Commuting Student Carpool"
-  Fuel_Consumption * 0.006
+} else if (Vehicle_type == "Commuting student carpool"){
+#0.006kg/gals is N2O Emission Factor of a car 
+  return(Fuel_consumption * 0.006)
                       
-} else if (vehicle_type == "Commuting Student Bus"
-   Fuel Consumption * 0.003
+} else if (Vehicle_type == "Commuting student bus"){
+#0.003 kg/gals is N2O Emission Factor of a Commuter Bus 
+   return(Fuel_consumption * 0.003)
                                  
-} else if (vehicle_type == "Commuting Staff Alone"
-    Fuel Consumption * 0.0006
+} else if (Vehicle_type == "Commuting staff alone"){
+#0.006 kg/gals is N2O Emission Factor of a car 
+    return(Fuel_consumption * 0.0006)
                                             
-} else if (vehicle_type == "Commuting Staff Carpool"
-    Fuel Consumption * 0.0006
+} else if (Vehicle_type == "Commuting staff carpool"){
+#0.006 kg/gals is N2O Emission Factor of a car   
+   return(Fuel_consumption * 0.0006)
                                                        
-} else if (vehicle_type == "Commuting Staff Bus"
-    Fuel_Consumption * 0.003
+} else if (Vehicle_type == "Commuting staff bus"){
+#0.003 kg/gals is N2O Emission Factor of a Commuter Bus 
+    return(Fuel_consumption * 0.003)
                                                                   
-} else if (vehicle_type == "Commuting Faculty Alone"
-    Fuel_Consumption * 0.0006
+} else if (Vehicle_type == "Commuting faculty alone"){
+#0.006 kg/gals is N2O Emission Factor of a car 
+    return(Fuel_consumption * 0.0006)
                                                                              
-} else if (vehicle_type == "Commuting Faculty Carpool"
-    Fuel_Consumption * 0.0006
+} else if (Vehicle_type == "Commuting faculty carpool"){
+#0.006 kg/gals is N2O Emission Factor of a car 
+    return(Fuel_consumption * 0.0006)
                                                                                         
-} else if (vehicle_type == "Commuting Faculty Bus"
-    Fuel_Consumption * 0.003
-                                                                                                   
-                                                                                                   
- 
+} else if (Vehicle_type == "Commuting faculty bus"){
+#0.003 kg/gals is N2O Emission Factor of a Commuter Bus 
+    return(Fuel_consumption * 0.003)
+}                                                                                                  
+                                                                                                 
+Institute_car_n20 <- calc_n20("Institute car",100,0)
+print(Institue_car_n20)
     
     #########################################################################################################
     #' Title: Fuel Consumption
@@ -88,7 +114,7 @@ calc_FuelConsumption <- function(vehicle_type,
                                                                                                                                                                                                    
 
 
-calc_NOx <- function (vehicle_type, Fuel_Volume)
+calc_NOx <- function (vehicle_type, Fuel_Volume, Fuel_Consumption)
   if (vehicle type == "Institustional car")
     Fuel_Volume * 22.1 * 0.000593
 
@@ -249,7 +275,7 @@ fuel_consumption <- function(fuel_efficiency, total_distance) {
 
 
 
-
+#test function
 
 
 
