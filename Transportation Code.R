@@ -72,39 +72,39 @@ print(Commuting_facultybus_distance)
 #' @examples
 calc_FuelConsumption <- function(vehicle_type,Distance){
 #1/Fuel Efficiency of the vehicle multiplied by the distance the vehicle traveled in miles                                                                                                     
- if (vehicle_type == "Commuting Student Alone"){
+ if (vehicle_type == "Commuting student alone"){
   #24.2 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
   fuel_consumption <- (1/24.2) * Distance
   
-} else if (vehicle_type == "Commuting Student Carpool"){ 
+} else if (vehicle_type == "Commuting student carpool"){ 
   #24.2 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
   fuel_consumption <- (1/24.2) * Distance
   
-} else if (vehicle_type == "Commuting Student Bus"){
+} else if (vehicle_type == "Commuting student bus"){
   #39.7 mpg (miles per gallon) is the Fuel Efficiency for a city bus taken from University Of virginia values
   fuel_consumption <- (1/39.7) * Distance  
   
-} else if (vehicle_type == "Commuting Staff Alone"){
+} else if (vehicle_type == "Commuting staff alone"){
   #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
   fuel_consumption <- (1/22.1) * Distance
   
-} else if (vehicle_type == "Commuting Staff Carpool"){
+} else if (vehicle_type == "Commuting staff carpool"){
   #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
   fuel_consumption <- (1/22.1) * Distance
   
-} else if (vehicle_type == "Commuting Staff Bus"){
+} else if (vehicle_type == "Commuting staff bus"){
   #39.7 mpg (miles per gallon) is the Fuel Efficiency for a city bus taken from University Of virginia values
   fuel_consumption <- (1/39.7) * Distance
   
-} else if (vehicle_type == "Commuting Faculty Alone"){
+} else if (vehicle_type == "Commuting faculty alone"){
   #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
   fuel_consumption <- (1/22.1) * Distance
   
-} else if (vehicle_type == "Commuting Faculty Carpool"){
+} else if (vehicle_type == "Commuting faculty carpool"){
   #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
   fuel_consumption <- (1/22.1) * Distance
   
-} else if (vehicle_type == "Commuting Faculty Bus"){ 
+} else if (vehicle_type == "Commuting faculty bus"){ 
   #39.7 mpg (miles per gallon) is the Fuel Efficiency for a city bus taken from University Of virginia values
   fuel_consumption <- (1/39.7) * Distance
 }  
@@ -116,7 +116,7 @@ Commuting_student_fuelconsumption <- calc_FuelConsumption("Commuting student alo
 Commuting_studentcarpool_fuelconsumption <- calc_FuelConsumption("Commuting student carpool",50)
 Commuting_studentbus_fuelconsumption <- calc_FuelConsumption("Commuting student bus",50)
 Commuting_staff_fuelconsumption <- calc_FuelConsumption("Commuting staff alone",50)
-Commuting_staffcarpool_fuelconsumption <- calc_FuelConsumption("Commutting staff carpool",50)
+Commuting_staffcarpool_fuelconsumption <- calc_FuelConsumption("Commuting staff carpool",50)
 Commuting_staffbus_fuelconsumption <- calc_FuelConsumption("Commuting staff bus",50)
 Commuting_faculty_fuelconsumption <-calc_FuelConsumption("Commuting faculty alone",50)
 Commuting_facultycarpool_fuelconsumption <-calc_FuelConsumption("Commuting faculty carpool",50)
