@@ -1,5 +1,5 @@
 
-################################################################
+
 #Distance Calculation####
 #' Title Total Distance
 #'
@@ -57,7 +57,7 @@ print(Commuting_facultybus_distance)
   
 
 
-#########################################################################################################
+
 #Fuel Consumption Calculation####
 #' Title: Fuel Consumption
 #'
@@ -134,8 +134,8 @@ print(Commuting_facultycarpool_fuelconsumption)
 print(Commuting_facultybus_fuelconsumption)
 
 
-########################################################################
-#N2O Function####
+
+#N2O Function#####
 #'Title:Total N2O released 
 #' @param Vehicle_type - mode of transportation
 #' @param Fuel_volume - in gallons, the amount of gasoline held in the vehicle
@@ -242,7 +242,8 @@ Commuting_faculty_n2O, Commuting_facultycarpool_n2O, Commuting_facultybus_n2O
 print(Total_N2O_Released) 
 
 
-####################################################################
+
+
 #NOx Calculation####
 #' Title:Calculate N Released as NOx
 #'
@@ -352,7 +353,7 @@ Commuting_faculty_NOx, Commuting_facultycarpool_NOx, Commuting_facultybus_NOx
 print(Total_NOx_Released)  
            
            
-#######################################################
+
 #Total Nitrogen Calculation####
 #'Title:Total N released 
 #' @param N_released_as_N2O-  N Released as N2O in kg 
