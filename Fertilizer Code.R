@@ -36,5 +36,5 @@ General_landscaping <- calc_N("general landscaping",.500)
 
 print(Trees)
 print(Shrubs)
-print(Turgrass)
+print(Turfgrass)
 print(General_landscaping)
