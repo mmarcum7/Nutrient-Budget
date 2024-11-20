@@ -1,5 +1,3 @@
-
-
 #Distance Calculation####
 #' Title Total Distance
 #'
@@ -17,32 +15,99 @@
 #' @examples
 #' total_distance(individuals = 100, commuting_rate = 0.5, trips = 270, days = 250, miles = 10, mode = "carpool")
 
-
-
-calc_totaldistance <- function(mode="alone",individuals, commuting_rate, trips, days, miles) {
-  #Calculation notes
-   if (mode == "alone") {
-    distance<- individuals * commuting_rate * trips * days * miles
+  
+calc_TotalDistance <- function(vehicle_type){
+  individuals <- c(
+    commuting_studentalone = 100,
+    commuting_studentcarpool = 100,
+    commuting_studentbus = 100,
+    commuting_staffalone = 100,
+    commuting_staffcarpool = 100,
+    commuting_staffbus = 100,
+    commuting_facultyalone = 100,
+    commuting_facultycarpool = 100,
+    commuting_facultybus = 100
+  )
+  
+  commuting_rate <- c(
+    commuting_studentalone = 0.25,
+    commuting_studentcarpool = 0.25,
+    commuting_studentbus = 0.25,
+    commuting_staffalone = 0.25,
+    commuting_staffcarpool = 0.25,
+    commuting_staffbus = 0.25,
+    commuting_facultyalone = 0.25,
+    commuting_facultycarpool = 0.25,
+    commuting_facultybus = 0.25
+  )
+  
+  trips <- c(
+    commuting_studentalone = 200,
+    commuting_studentcarpool = 200,
+    commuting_studentbus = 200,
+    commuting_staffalone = 200,
+    commuting_staffcarpool = 200,
+    commuting_staffbus = 200,
+    commuting_facultyalone = 200,
+    commuting_facultycarpool = 200,
+    commuting_facultybus = 200
+  )
+  
+  days <- c(
+    commuting_studentalone = 365,
+    commuting_studentcarpool = 365,
+    commuting_studentbus = 365,
+    commuting_staffalone = 365,
+    commuting_staffcarpool = 365,
+    commuting_staffbus = 365,
+    commuting_facultyalone = 365,
+    commuting_facultycarpool = 365,
+    commuting_facultybus = 365
+  )
+  
+  miles <- c(
+    commuting_studentalone = 10000,
+    commuting_studentcarpool = 10000,
+    commuting_studentbus = 10000,
+    commuting_staffalone = 10000,
+    commuting_staffcarpool = 10000,
+    commuting_staffbus = 10000,
+    commuting_facultyalone = 10000,
+    commuting_facultycarpool = 10000,
+    commuting_facultybus = 10000
+  )
+  
+    if (vehicle_type == "commuting_studentalone" ||
+       vehicle_type == "commuting_staffalone"    ||
+       vehicle_type == "commuting_facultyalone"  ||
+       vehicle_type == "commuting_studentbus"    ||
+       vehicle_type == "commuting_staffbus"      ||
+       vehicle_type == "commuting_facultybus") {
     
-  } else if (mode == "carpool") {
-    distance<- individuals * commuting_rate * trips * days * miles / 2 
+     distance <- individuals[vehicle_type] * commuting_rate[vehicle_type] * trips[vehicle_type] *
+       days[vehicle_type] * miles[vehicle_type]
+    
+    
+  } else if (vehicle_type == "commuting_studentcarpool" ||
+             vehicle_type == "commuting_staffcarpool"   ||
+             vehicle_type == "commuting_facultycarpool") {
+    distance <- individuals[vehicle_type] * commuting_rate[vehicle_type] * trips[vehicle_type] *
+      days[vehicle_type] * miles[vehicle_type] / 2
  
-  } else if (mode == "bus") {
-    distance<-individuals * commuting_rate * trips * days * miles
-  }
+}  
 return(distance)
 }
  
  
-Commuting_student_distance <- calc_totaldistance("alone",100,10,100,365,1000)
-Commuting_studentcarpool_distance <-  calc_totaldistance("carpool",100,10,100,365,1000)
-Commuting_studentbus_distance <-  calc_totaldistance("bus",100,10,100,365,1000)
-Commuting_staff_distance <-  calc_totaldistance("alone",100,10,100,365,1000)
-Commuting_staffcarpool_distance <-  calc_totaldistance("carpool",100,10,100,365,1000)
-Commuting_staffbus_distance <-  calc_totaldistance("bus",100,10,100,365,1000)
-Commuting_faculty_distance <- calc_totaldistance("alone",100,10,100,365,1000)
-Commuting_facultycarpool_distance <-  calc_totaldistance("carpool",100,10,100,365,1000)
-Commuting_facultybus_distance <-  calc_totaldistance("bus",100,10,100,365,1000)
+Commuting_student_distance <- calc_TotalDistance("commuting_studentalone")
+Commuting_studentcarpool_distance <-  calc_TotalDistance("commuting_studentcarpool")
+Commuting_studentbus_distance <-  calc_TotalDistance("commuting_studentbus")
+Commuting_staff_distance <-  calc_TotalDistance("commuting_staffalone")
+Commuting_staffcarpool_distance <-  calc_TotalDistance("commuting_staffcarpool")
+Commuting_staffbus_distance <-  calc_TotalDistance("commuting_staffbus")
+Commuting_faculty_distance <- calc_TotalDistance("commuting_facultyalone")
+Commuting_facultycarpool_distance <-  calc_TotalDistance("commuting_facultycarpool")
+Commuting_facultybus_distance <-  calc_TotalDistance("commuting_facultybus")
 
 
 print(Commuting_student_distance)
@@ -54,7 +119,7 @@ print(Commuting_staffbus_distance)
 print(Commuting_faculty_distance)
 print(Commuting_facultycarpool_distance)
 print(Commuting_facultybus_distance)
-  
+###################################################################################################################################################################################################################################
 
 
 
@@ -70,57 +135,50 @@ print(Commuting_facultybus_distance)
 #' @export 
 #'
 #' @examples
-calc_FuelConsumption <- function(vehicle_type,Distance){
-#1/Fuel Efficiency of the vehicle multiplied by the distance the vehicle traveled in miles                                                                                                     
- if (vehicle_type == "Commuting student alone"){
-  #24.2 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
-  fuel_consumption <- (1/24.2) * Distance
+#
+
+calc_FuelConsumption <- function(vehicle_type){
+
+#Fuel Efficiency Factors from UVA
+  fuelefficiency_factors <- c(
+    commuting_studentalone = 24.2,
+    commuting_studentcarpool = 24.2,
+    commuting_studentbus = 39.7,
+    commuting_staffalone = 22.1,
+    commuting_staffcarpool = 22.1,
+    commuting_staffbus = 39.7,
+    commuting_facultyalone = 22.1,
+    commuting_facultycarpool = 22.1,
+    commuting_facultybus = 39.7
+)
+
+  distance <- c(
+    commuting_studentalone = "Commuting_student_distance",
+    commuting_studentcarpool = "Commuting_studentcarpool_distance",
+    commuting_studentbus = "Commuting_studentbus_distance",
+    commuting_staffalone = "Commuting_staff_distance",
+    commuting_staffcarpool = "Commuting_staffcarpool_distance", 
+    commuting_staffbus = "Commuting_staffbus_distance", 
+    commuting_facultyalone = "Commuting_faculty_distance",
+    commuting_facultycarpool = "Commuting_facultycarpool_distance",
+    commuting_facultybus = "Commuting_facultybus_distance"
+)
+
+  fuel_consumption <- fuelefficiency_factors[vehicle_type] * get(distance[vehicle_type])
   
-} else if (vehicle_type == "Commuting student carpool"){ 
-  #24.2 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
-  fuel_consumption <- (1/24.2) * Distance
-  
-} else if (vehicle_type == "Commuting student bus"){
-  #39.7 mpg (miles per gallon) is the Fuel Efficiency for a city bus taken from University Of virginia values
-  fuel_consumption <- (1/39.7) * Distance  
-  
-} else if (vehicle_type == "Commuting staff alone"){
-  #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
-  fuel_consumption <- (1/22.1) * Distance
-  
-} else if (vehicle_type == "Commuting staff carpool"){
-  #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
-  fuel_consumption <- (1/22.1) * Distance
-  
-} else if (vehicle_type == "Commuting staff bus"){
-  #39.7 mpg (miles per gallon) is the Fuel Efficiency for a city bus taken from University Of virginia values
-  fuel_consumption <- (1/39.7) * Distance
-  
-} else if (vehicle_type == "Commuting faculty alone"){
-  #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
-  fuel_consumption <- (1/22.1) * Distance
-  
-} else if (vehicle_type == "Commuting faculty carpool"){
-  #22.1 mpg (miles per gallon) is the Fuel Efficiency for a car taken from University Of virginia values
-  fuel_consumption <- (1/22.1) * Distance
-  
-} else if (vehicle_type == "Commuting faculty bus"){ 
-  #39.7 mpg (miles per gallon) is the Fuel Efficiency for a city bus taken from University Of virginia values
-  fuel_consumption <- (1/39.7) * Distance
-}  
-return(fuel_consumption)
+  return(fuel_consumption)
 }    
 
 
-Commuting_student_fuelconsumption <- calc_FuelConsumption("Commuting student alone",50)
-Commuting_studentcarpool_fuelconsumption <- calc_FuelConsumption("Commuting student carpool",50)
-Commuting_studentbus_fuelconsumption <- calc_FuelConsumption("Commuting student bus",50)
-Commuting_staff_fuelconsumption <- calc_FuelConsumption("Commuting staff alone",50)
-Commuting_staffcarpool_fuelconsumption <- calc_FuelConsumption("Commuting staff carpool",50)
-Commuting_staffbus_fuelconsumption <- calc_FuelConsumption("Commuting staff bus",50)
-Commuting_faculty_fuelconsumption <-calc_FuelConsumption("Commuting faculty alone",50)
-Commuting_facultycarpool_fuelconsumption <-calc_FuelConsumption("Commuting faculty carpool",50)
-Commuting_facultybus_fuelconsumption <-calc_FuelConsumption("Commuting faculty bus",50)
+Commuting_student_fuelconsumption <- calc_FuelConsumption("commuting_studentalone")
+Commuting_studentcarpool_fuelconsumption <- calc_FuelConsumption("commuting_studentcarpool")
+Commuting_studentbus_fuelconsumption <- calc_FuelConsumption("commuting_studentbus")
+Commuting_staff_fuelconsumption <- calc_FuelConsumption("commuting_staffalone")
+Commuting_staffcarpool_fuelconsumption <- calc_FuelConsumption("commuting_staffcarpool")
+Commuting_staffbus_fuelconsumption <- calc_FuelConsumption("commuting_staffbus")
+Commuting_faculty_fuelconsumption <-calc_FuelConsumption("commuting_facultyalone")
+Commuting_facultycarpool_fuelconsumption <-calc_FuelConsumption("commuting_facultycarpool")
+Commuting_facultybus_fuelconsumption <-calc_FuelConsumption("commuting_facultybus")
 
 
 print(Commuting_student_fuelconsumption)
@@ -132,10 +190,12 @@ print(Commuting_staffbus_fuelconsumption)
 print(Commuting_faculty_fuelconsumption)
 print(Commuting_facultycarpool_fuelconsumption)
 print(Commuting_facultybus_fuelconsumption)
+###################################################################################################################################################################################################################################
 
 
 
-#N2O Function#####
+
+#Institution- N2O Released and Total N2O of all Transportation Modes#####
 #'Title:Total N2O released 
 #' @param Vehicle_type - mode of transportation
 #' @param Fuel_volume - in gallons, the amount of gasoline held in the vehicle
@@ -146,105 +206,110 @@ print(Commuting_facultybus_fuelconsumption)
 #'
 #' @examples
 
-calc_n2O <- function(Vehicle_type, Fuel_volume,Fuel_consumption) {
-  #Fuel Volume for Institute Vehicles and Fuel Consumption for commuter vehicles, multiplied by the Fuel Emmission Factor of that vehicle
-  if (Vehicle_type == "Institute car") {
-    #0.006 kg N2O/gals is N2O Emission Factor of a car taken from University Of virginia values
-    TotalN2O <- Fuel_volume * 0.0006
+
+calc_N2O <- function(vehicle_type) {
+  
+  fuelemmission_factor <- c(
+    institute_car = 0.0006,
+    institute_van = 0.0006,
+    institute_bus = 0.00649,
+    institute_biodieselbus = 0.000675,
+    commuting_studentalone = 0.0006,
+    commuting_studentcarpool = 0.0006,
+    commuting_studentbus = 0.003,
+    commuting_staffalone = 0.006, 
+    commuting_staffcarpool = 0.006, 
+    commuting_staffbus = 0.003,
+    commuting_facultyalone = 0.0006,
+    commuting_facultycarpool = 0.0006,
+    commuting_facultybus = 0.003
+  )
+  
+  fuelvolume <- c(
+    institute_car = 100,
+    institute_van = 100,
+    institute_bus = 100,
+    institute_biodieselbus = 100
+  )
+  
+  fuelconsumption <- c(
+    commuting_studentalone = "Commuting_student_fuelconsumption",
+    commuting_studentcarpool = "Commuting_studentcarpool_fuelconsumption", 
+    commuting_studentbus = "Commuting_studentbus_fuelconsumption",
+    commuting_staffalone = "Commuting_staff_fuelconsumption", 
+    commuting_staffcarpool = "Commuting_staffcarpool_fuelconsumption",
+    commuting_staffbus = "Commuting_staffbus_fuelconsumption",
+    commuting_facultyalone = "Commuting_faculty_fuelconsumption",
+    commuting_facultycarpool = "Commuting_facultycarpool_fuelconsumption", 
+    commuting_facultybus = "Commuting_facultybus_fuelconsumption"
     
-  } else if (Vehicle_type == "Institute van") {
-    #O is a placeholder
-    #x kg N2O/gals is N2O Emission Factor of a van taken from University Of virginia values 
-    TotalN2O <- Fuel_volume * 0
+  )
+  if(vehicle_type == "institute_car" ||
+     vehicle_type == "institute_van" ||
+     vehicle_type == "institute_bus" ||
+     vehicle_type == "institute_biodieselbus"){
     
-  } else if (Vehicle_type == "Institute biodiesel bus"){
-    #0.000675 kgN2O/gals is N2O Emission Factor of an Institute biodiesel bus taken from University Of virginia values
-    TotalN2O <- Fuel_volume * 0.000675
+    N2O_released <- fuelemmission_factor[vehicle_type] * fuelvolume[vehicle_type]
     
-  } else if (Vehicle_type == "Institute bus"){
-    #0.00649 kgN2O/gals is N2O Emission Factor of an Institute bus taken from University Of virginia values
-    TotalN2O <- Fuel_volume * 0.00649
-    
-  } else if (Vehicle_type == "Commuting student alone") {
-    #0.006 kg N2O/gals is N2O Emission Factor of an car taken from University Of virginia values
-    TotalN2O <- Fuel_consumption * 0.0006
-    
-  } else if (Vehicle_type == "Commuting student carpool"){
-    #0.006kg N2O/gals is N2O Emission Factor of a car taken from University Of virginia values
-    TotalN2O <- Fuel_consumption * 0.0006
-    
-  } else if (Vehicle_type == "Commuting student bus"){
-    #0.003 kg N2O/gals is N2O Emission Factor of a Commuter Bus taken from University Of virginia values
-    TotalN2O <- Fuel_consumption * 0.003
-    
-  } else if (Vehicle_type == "Commuting staff alone"){
-    #0.006 kg N2O/gals is N2O Emission Factor of a car taken from University Of virginia values
-    TotalN2O <- Fuel_consumption * 0.0006
-    
-  } else if (Vehicle_type == "Commuting staff carpool"){
-    #0.006 kg N2O/gals is N2O Emission Factor of a car taken from University Of virginia values  
-    TotalN2O <- Fuel_consumption * 0.0006
-    
-  } else if (Vehicle_type == "Commuting staff bus"){
-    #0.003 kg N2O/gals is N2O Emission Factor of a Commuter Bus taken from University Of virginia values
-    return(Fuel_consumption * 0.003)
-    
-  } else if (Vehicle_type == "Commuting faculty alone"){
-    #0.006 kg N2O/gals is N2O Emission Factor of a car taken from University Of virginia values
-    TotalN2O <- Fuel_consumption * 0.0006
-    
-  } else if (Vehicle_type == "Commuting faculty carpool"){
-    #0.006 kg N2O/gals is N2O Emission Factor of a car taken from University Of virginia values
-    TotalN2O <- Fuel_consumption * 0.0006
-    
-  } else if (Vehicle_type == "Commuting faculty bus"){
-    #0.003 kg N2O/gals is N2O Emission Factor of a city bus taken from University Of virginia values
-    TotalN2O <- Fuel_consumption * 0.003
-} 
-return(TotalN2O)  
+ } else if (vehicle_type == "commuting_studentalone" ||
+      vehicle_type == "commuting_studentcarpool"     ||
+      vehicle_type == "commuting_studentbus"         ||
+      vehicle_type == "commuting_staffalone"         ||
+      vehicle_type == "commuting_staffcarpool"       ||
+      vehicle_type == "commuting_staffbus"           ||
+      vehicle_type == "commuting_facultyalone"       ||
+      vehicle_type == "commuting_facultycarpool"     ||
+      vehicle_type == "commuting_facultybus") {
+      
+     N2O_released <- fuelemmission_factor[vehicle_type] * get(fuelconsumption[vehicle_type])
+      
+  return(N2O_released)  
+}
 }
 
-Institute_car_n2O <- calc_n2O("Institute car",100,0)
-Institute_van_n2O <- calc_n2O("Institute van",100,0)
-Institute_bus_n2O <- calc_n2O("Institute bus",100,0)
-Institute_biodieselbus_n2O <- calc_n2O("Institute biodiesel bus",0,500)
-Commuting_student_n2O <- calc_n2O("Commuting student alone",0,500)
-Commuting_studentcarpool_n20 <- calc_n2O("Commuting student carpool",0,500)
-Commuting_studentbus_n2O <- calc_n2O("Commuting student bus",0,500)
-Commuting_staff_n2O <- calc_n2O("Commuting staff alone",0,500)
-Commuting_staffcarpool_n2O <- calc_n2O("Commuting staff carpool",0,500)
-Commuting_staffbus_n2O <-calc_n2O("Commuting staff bus",0,500)
-Commuting_faculty_n2O <-calc_n2O("Commuting faculty alone",0,500)
-Commuting_facultycarpool_n2O <-calc_n2O("Commuting faculty carpool",0,500)
-Commuting_facultybus_n2O <-calc_n2O("Commuting faculty bus",0,500)
+Institute_car_N2O <- calc_N2O("institute_car")
+Institute_van_N2O <- calc_N2O("institute_van")
+Institute_bus_N2O <- calc_N2O("institute_bus")
+Institute_biodieselbus_N2O <- calc_N2O("institute_biodieselbus")
+Commuting_studentalone_N2O <- calc_N2O("commuting_studentalone")
+Commuting_studentcarpool_N2O <- calc_N2O("commuting_studentcarpool")
+Commuting_studentbus_N2O <- calc_N2O("commuting_studentbus")
+Commuting_staffalone_N2O <- calc_N2O("commuting_staffalone")
+Commuting_staffcarpool_N2O <- calc_N2O("commuting_staffcarpool")
+Commuting_staffbus_N2O <-calc_N2O("commuting_staffbus")
+Commuting_facultyalone_N2O <-calc_N2O("commuting_facultyalone")
+Commuting_facultycarpool_N2O <-calc_N2O("commuting_facultycarpool")
+Commuting_facultybus_N2O <-calc_N2O("commuting_facultybus")
 
-print(Institute_car_n2O)
-print(Institute_van_n2O)
-print(Institute_bus_n2O)
-print(Institute_biodieselbus_n2O)
-print(Commuting_student_n2O)
-print(Commuting_studentcarpool_n20)
-print(Commuting_studentbus_n2O)
-print(Commuting_staff_n2O)
-print(Commuting_staffcarpool_n2O)
-print(Commuting_staffbus_n2O)
-print(Commuting_faculty_n2O)
-print(Commuting_facultycarpool_n2O)
-print(Commuting_facultybus_n2O)
+print(Institute_car_N2O)
+print(Institute_van_N2O)
+print(Institute_bus_N2O)
+print(Institute_biodieselbus_N2O)
+print(Commuting_studentalone_N2O)
+print(Commuting_studentcarpool_N2O)
+print(Commuting_studentbus_N2O)
+print(Commuting_staffalone_N2O)
+print(Commuting_staffcarpool_N2O)
+print(Commuting_staffbus_N2O)
+print(Commuting_facultyalone_N2O)
+print(Commuting_facultycarpool_N2O)
+print(Commuting_facultybus_N2O)
 
-#Calculate the Total N2O released from vehicles
+
+
+#Institution - Calculate the Total N2O released from vehicles
 Total_N2O_Released <- sum(
-Institute_car_n2O, Institute_van_n2O, Institute_bus_n2O, Institute_biodieselbus_n2O,
-Commuting_student_n2O, Commuting_studentcarpool_n20, Commuting_studentbus_n2O,
-Commuting_staff_n2O,Commuting_staffcarpool_n2O , Commuting_staffbus_n2O,
-Commuting_faculty_n2O, Commuting_facultycarpool_n2O, Commuting_facultybus_n2O
+Institute_car_N2O, Institute_van_N2O, Institute_bus_N2O, Institute_biodieselbus_N2O,
+Commuting_studentalone_N2O, Commuting_studentcarpool_N2O, Commuting_studentbus_N2O,
+Commuting_staffalone_N2O,Commuting_staffcarpool_N2O , Commuting_staffbus_N2O,
+Commuting_facultyalone_N2O, Commuting_facultycarpool_N2O, Commuting_facultybus_N2O
 )
 print(Total_N2O_Released) 
+###################################################################################################################################################################################################################################
 
 
 
-
-#NOx Calculation####
+#Institution - NOx Released and Total NOx of all Transportation Modes####
 #' Title:Calculate N Released as NOx
 #'
 #' @param fuel_consumption -fuel consumption in gallons
@@ -255,89 +320,109 @@ print(Total_N2O_Released)
 #' @export
 #'
 #' @examples
-calc_NOx <- function (vehicle_type, Fuel_Volume, Fuel_Consumption){
+
+
+calc_NOx <- function (vehicle_type){
+   
+  nox_emmissionfactor <-c(
+     institute_car = 0.000593,
+     institute_van = 0.000593,
+     institute_bus = 0.0028,
+     institute_biodieselbus = 0.00649,
+     commuting_studentalone = 0.00059,
+     commuting_studentcarpool = 0.00059,
+     commuting_studentbus = 0.00649,
+     commuting_staffalone = 0.00059,
+     commuting_staffcarpool = 0.00059,
+     commuting_staffbus = 0.00649,
+     commuting_facultyalone = 0.00059,
+     commuting_facultycarpool = 0.00059,
+     commuting_facultybus = 0.00649
+   )
   
-  if (vehicle_type == "Institute car"){
-#22.1 miles per gallon is the Average Fuel Efficiency and 0.000593 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Volume * 22.1 * 0.000593
+  averagefuelefficiency <- c(
+    institute_car = 22.1,
+    institute_van = 22.1,
+    institute_bus = 6.9,
+    institute_biodieselbus = 0.45,
+    commuting_studentalone = 24.2,
+    commuting_studentcarpool = 24.2,
+    commuting_studentbus = 31.9,
+    commuting_staffalone = 22.1,
+    commuting_staffcarpool = 22.1,
+    commuting_staffbus = 39.7,
+    commuting_facultyalone = 22.1,
+    commuting_facultycarpool = 22.1,
+    commuting_facultybus = 39.7 
+  )
+   
+  fuelvolume <- c(
+    institute_car = 100,
+    institute_van = 100,
+    institute_bus = 100,
+    institute_biodieselbus = 100
+  )
+  
+  fuelconsumption <- c(
+    commuting_studentalone = "Commuting_student_fuelconsumption",
+    commuting_studentcarpool = "Commuting_studentcarpool_fuelconsumption", 
+    commuting_studentbus = "Commuting_studentbus_fuelconsumption",
+    commuting_staffalone = "Commuting_staff_fuelconsumption", 
+    commuting_staffcarpool = "Commuting_staffcarpool_fuelconsumption",
+    commuting_staffbus = "Commuting_staffbus_fuelconsumption",
+    commuting_facultyalone = "Commuting_faculty_fuelconsumption",
+    commuting_facultycarpool = "Commuting_facultycarpool_fuelconsumption", 
+    commuting_facultybus = "Commuting_facultybus_fuelconsumption"
+  )   
+  
 
-  }else if (vehicle_type == "Institute van"){
-#O are placeholders
-#x miles per gallon is the Average Fuel Efficiency and y kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Volume * 0 * 0
-
-  }else if (vehicle_type == "Institute bus"){
-#6.9 miles per gallon is the Average Fuel Efficiency and 0.00028 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Volume * 6.9 * 0.00028
-
-  }else if (vehicle_type == "Institute biodiesel bus"){
-#0.45 miles per gallon is the Average Fuel Efficiency and 0.00649 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Volume * 0.45 * 0.00649
-
-  }else if (vehicle_type == "Commuting student alone"){
-#24.2 miles per gallon is the Average Fuel Efficiency and 0.00059 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 24.2 * 0.00059
-         
-  }else if (vehicle_type == "Commuting student carpool"){
-#24.2.1 miles per gallon is the Average Fuel Efficiency and 0.00059 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 24.2 * 0.00059 
-    
-  }else if (vehicle_type == "Commuting student bus"){
- #31.9 miles per gallon is the Average Fuel Efficiency and 0.000649 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 31.9 * 0.00649  
-         
-  }else if (vehicle_type == "Commuting staff alone"){
-#22.1 miles per gallon is the Average Fuel Efficiency and 0.00059 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 22.1 * 0.00059 
-         
-  }else if (vehicle_type == "Commuting staff carpool"){
-#22.1 miles per gallon is the Average Fuel Efficiency and 0.00059 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 22.1 * 0.00059 
-         
-  }else if (vehicle_type == "Commuting staff bus"){
-#39.7 miles per gallon is the Average Fuel Efficiency and 0.00649 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 39.7 * 0.00649
-         
-  }else if (vehicle_type == "Commuting faculty alone"){
-#22.1 miles per gallon is the Average Fuel Efficiency and 0.00059 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 22.1 * 0.00059 
-         
-  }else if (vehicle_type == "Commuting faculty carpool"){
-#22.1 miles per gallon is the Average Fuel Efficiency and 0.00059 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-    TotalNOx<- Fuel_Consumption * 22.1 * 0.00059 
-         
- } else if (vehicle_type == "Commuting faculty bus"){
-#39.7 miles per gallon is the Average Fuel Efficiency and 0.000649 kg NOx/miles is the NOx Emission Factor all from the the University of Virginia
-   TotalNOx<- Fuel_Consumption * 39.7 * 0.00649  
+  if(vehicle_type == "institute_car" ||
+     vehicle_type == "institute_van" ||
+     vehicle_type == "institute_bus" ||
+     vehicle_type == "institute_biodieselbus"){
+  
+  NOx_released <- fuelvolume[vehicle_type] * nox_emmissionfactor[vehicle_type] * averagefuelefficiency[vehicle_type]
+  
+}  else if (vehicle_type == "commuting_studentalone" ||
+            vehicle_type == "commuting_studentcarpool"     ||
+            vehicle_type == "commuting_studentbus"         ||
+            vehicle_type == "commuting_staffalone"         ||
+            vehicle_type == "commuting_staffcarpool"       ||
+            vehicle_type == "commuting_staffbus"           ||
+            vehicle_type == "commuting_facultyalone"       ||
+            vehicle_type == "commuting_facultycarpool"     ||
+            vehicle_type == "commuting_facultybus") {
+  
+  NOx_released <- get(fuelconsumption[vehicle_type]) * nox_emmissionfactor[vehicle_type] * averagefuelefficiency[vehicle_type]
+  
+  return(NOx_released)  
 }
-return(TotalNOx)
-}         
-
-Institute_car_NOx <- calc_NOx("Institute car",100,0)
-Institute_van_NOx <- calc_NOx("Institute van",100,0)
-Institute_bus_NOx <- calc_NOx("Institute bus",100,0)
-Institute_biodieselbus_NOx <- calc_NOx("Institute biodiesel bus",0,500)
-Commuting_student_NOx <- calc_NOx("Commuting student alone",0,500)
-Commuting_studentcarpool_NOx <- calc_NOx("Commuting student carpool",0,500)
-Commuting_studentbus_NOx <- calc_NOx("Commuting student bus",0,500)
-Commuting_staff_NOx <- calc_NOx("Commuting staff alone",0,500)
-Commuting_staffcarpool_NOx <- calc_NOx("Commuting staff carpool",0,500)
-Commuting_staffbus_NOx <-calc_NOx("Commuting staff bus",0,500)
-Commuting_faculty_NOx <-calc_NOx("Commuting faculty alone",0,500)
-Commuting_facultycarpool_NOx <-calc_NOx("Commuting faculty carpool",0,500)
-Commuting_facultybus_NOx <-calc_NOx("Commuting faculty bus",0,500)
+}
+Institute_car_NOx <- calc_NOx("institute_car")
+Institute_van_NOx <- calc_NOx("institute_van")
+Institute_bus_NOx <- calc_NOx("institute_bus")
+Institute_biodieselbus_NOx <- calc_NOx("institute_biodieselbus")
+Commuting_studentalone_NOx <- calc_NOx("commuting_studentalone")
+Commuting_studentcarpool_NOx <- calc_NOx("commuting_studentcarpool")
+Commuting_studentbus_NOx <- calc_NOx("commuting_studentbus")
+Commuting_staffalone_NOx <- calc_NOx("commuting_staffalone")
+Commuting_staffcarpool_NOx <- calc_NOx("commuting_staffcarpool")
+Commuting_staffbus_NOx <-calc_NOx("commuting_staffbus")
+Commuting_facultyalone_NOx <-calc_NOx("commuting_facultyalone")
+Commuting_facultycarpool_NOx <-calc_NOx("commuting_facultycarpool")
+Commuting_facultybus_NOx <-calc_NOx("commuting_facultybus")
 
 print(Institute_car_NOx)
 print(Institute_van_NOx)
-print(Institute_bus_n2O)
+print(Institute_bus_NOx)
 print(Institute_biodieselbus_NOx)
-print(Commuting_student_NOx)
+print(Commuting_studentalone_NOx)
 print(Commuting_studentcarpool_NOx)
 print(Commuting_studentbus_NOx)
-print(Commuting_staff_NOx)
+print(Commuting_staffalone_NOx)
 print(Commuting_staffcarpool_NOx)
 print(Commuting_staffbus_NOx)
-print(Commuting_faculty_NOx)
+print(Commuting_facultyalone_NOx)
 print(Commuting_facultycarpool_NOx)
 print(Commuting_facultybus_NOx)
 
@@ -345,16 +430,17 @@ print(Commuting_facultybus_NOx)
 #Calculate the Total NOx released for all vehicles         
 Total_NOx_Released <- sum(
 Institute_car_NOx, Institute_van_NOx, Institute_bus_NOx, Institute_biodieselbus_NOx,
-Commuting_student_NOx, Commuting_studentcarpool_NOx, Commuting_studentbus_NOx,
-Commuting_staff_NOx, Commuting_staffcarpool_NOx, Commuting_staffbus_NOx,
-Commuting_faculty_NOx, Commuting_facultycarpool_NOx, Commuting_facultybus_NOx
+Commuting_studentalone_NOx, Commuting_studentcarpool_NOx, Commuting_studentbus_NOx,
+Commuting_staffalone_NOx, Commuting_staffcarpool_NOx, Commuting_staffbus_NOx,
+Commuting_facultyalone_NOx, Commuting_facultycarpool_NOx, Commuting_facultybus_NOx
 )
 
 print(Total_NOx_Released)  
-           
+###################################################################################################################################################################################################################################
+
            
 
-#Total Nitrogen Calculation####
+#Institution - Total Nitrogen (N2O + NOx) ####
 #'Title:Total N released 
 #' @param N_released_as_N2O-  N Released as N2O in kg 
 #' @param 0.63636- Conversion from N2O to N value from University of Virginia
