@@ -1,4 +1,4 @@
-#Institution_Population####
+#calcInstitution_Population####
 #'
 #' @param Residential_Employees -Number of Residential Employees
 #' @param In_patient_hospital_beds -Number of in-patient hospital beds
@@ -12,12 +12,12 @@
 #'
 #' @examples
 calcInstitution_Population <- function(Residential_Employees, In_patient_hospital_beds, FTE_students, FTE_employees, FTE_distance_educated_students){
-  Institution_Populatoin <-(Residential_Employees + In_patient_hospital_beds + FTE_students + FTE_employees - 0.75 * FTE_distance_educated_students)
-  return(Institution_Populatoin)
+  Institution_Population <-(Residential_Employees + In_patient_hospital_beds + FTE_students + FTE_employees - 0.75 * FTE_distance_educated_students)
+  return(Institution_Population)
 }
 
 #Example
-Institution_Population <- calcInstitution_Population(Residential_Employees = 100, 50, 10000, 2000, 5000)
+calcInstitution_Population <- calcInstitution_Population(Residential_Employees = 100, 50, 10000, 2000, 5000)
 print(Institution_Population)
 
 
@@ -61,13 +61,13 @@ Mass_AllFood_Donated <- 5000 #mass of all food donated by university in kg
 #Institution - Total Food Mass/Food Ordered for each Food Category####
 #'
 #' @param Food_Category Kind of food 
-#' @param Institution_Population Population value for Loyola
+#' @param calcInstitution_Population Population value for Loyola
 #'
 #' @return Total_Food_Mass Estimated total food mass/food that was ordered for the food category at the institution in kg
 #' @export
 #'
 #' @examples
-#' Total_Food_Mass("Poultry", Institution_Population)
+#' Total_Food_Mass("Poultry", calcInstitution_Population)
 
 
 calcTotal_Food_Mass <- function(Food_Category) {
@@ -97,7 +97,7 @@ calcTotal_Food_Mass <- function(Food_Category) {
   )
   
   
-  mass <- food_masses[Food_Category] * (Institution_Population / UVA_Population)
+  mass <- food_masses[Food_Category] * (calcInstitution_Population / UVA_Population)
   
   
   return(mass)
@@ -150,7 +150,7 @@ print(Beverages_Total_Food_Mass)
 #Institution - Total Virtual N for each Food Category####
 #'
 #' @param Food_Category Kind of food 
-#' @param Institution_Population Population value for Loyola
+#' @param calcInstitution_Population Population value for Loyola
 #'
 #' @return Estimated total virtual N for the food category at the institution in kg
 #' @export
@@ -184,7 +184,7 @@ calcTotal_Virtual_N <- function(Food_Category) {
   )
   
   
-  virtual <- Virtual_N[Food_Category] * (Institution_Population / UVA_Population)
+  virtual <- Virtual_N[Food_Category] * (calcInstitution_Population / UVA_Population)
   
   return(virtual)
 }
@@ -237,7 +237,7 @@ print(Beverages_Virtual_N)
 #Institution - Total Transport N for each Food Category####
 #'
 #' @param Food_Category Kind of food 
-#' @param Institution_Population Population value for Loyola
+#' @param calcInstitution_Population Population value for Loyola
 #'
 #' @return Estimated Total Transport N for the food category at the institution in kg
 #' @export
@@ -246,7 +246,7 @@ print(Beverages_Virtual_N)
 #' 
 
 
-calcTotal_Transport_N <- function(Food_Category, Institution_Population) {
+calcTotal_Transport_N <- function(Food_Category, calcInstitution_Population) {
   UVA_Population <- 34056 #constant, University of Virginia population 
   
   Transport_N <- c(
@@ -270,31 +270,31 @@ calcTotal_Transport_N <- function(Food_Category, Institution_Population) {
     Beverages = 5
   )
   
-  transport <- Transport_N[Food_Category] * (Institution_Population / UVA_Population)
+  transport <- Transport_N[Food_Category] * (calcInstitution_Population / UVA_Population)
   
   return(transport)
 }
 
 
 #Result
-Poultry_Transport_N <- calcTotal_Transport_N("Poultry", Institution_Population)
-Bovine_Transport_N <- calcTotal_Transport_N("Bovine", Institution_Population)
-Pigmeat_Transport_N <- calcTotal_Transport_N("Pigmeat", Institution_Population)
-Milk_Transport_N <- calcTotal_Transport_N("Milk", Institution_Population)
-Cheese_Transport_N <- calcTotal_Transport_N("Cheese", Institution_Population)
-Eggs_Transport_N <- calcTotal_Transport_N("Eggs", Institution_Population)
-Fish_Transport_N <- calcTotal_Transport_N("Fish", Institution_Population)
-Cereals_Transport_N <- calcTotal_Transport_N("Cereals", Institution_Population)
-Fruits_Transport_N <- calcTotal_Transport_N("Fruits", Institution_Population)
-Pulses_Transport_N <- calcTotal_Transport_N("Pulses", Institution_Population)
-Starchy_Roots_Transport_N <- calcTotal_Transport_N("Starchy_Roots", Institution_Population)
-Vegetables_Transport_N <- calcTotal_Transport_N("Vegetables", Institution_Population)
-Stimulants_Transport_N <- calcTotal_Transport_N("Stimulants", Institution_Population)
-Oilcrops_Transport_N <- calcTotal_Transport_N("Oilcrops", Institution_Population)
-Sugarcrops_Transport_N <- calcTotal_Transport_N("Sugarcrops", Institution_Population)
-Nuts_Transport_N <- calcTotal_Transport_N("Nuts", Institution_Population)
-Spices_Transport_N <- calcTotal_Transport_N("Spices", Institution_Population)
-Beverages_Transport_N <- calcTotal_Transport_N("Beverages", Institution_Population)
+Poultry_Transport_N <- calcTotal_Transport_N("Poultry", calcInstitution_Population)
+Bovine_Transport_N <- calcTotal_Transport_N("Bovine", calcInstitution_Population)
+Pigmeat_Transport_N <- calcTotal_Transport_N("Pigmeat", calcInstitution_Population)
+Milk_Transport_N <- calcTotal_Transport_N("Milk", calcInstitution_Population)
+Cheese_Transport_N <- calcTotal_Transport_N("Cheese", calcInstitution_Population)
+Eggs_Transport_N <- calcTotal_Transport_N("Eggs", calcInstitution_Population)
+Fish_Transport_N <- calcTotal_Transport_N("Fish", calcInstitution_Population)
+Cereals_Transport_N <- calcTotal_Transport_N("Cereals", calcInstitution_Population)
+Fruits_Transport_N <- calcTotal_Transport_N("Fruits", calcInstitution_Population)
+Pulses_Transport_N <- calcTotal_Transport_N("Pulses", calcInstitution_Population)
+Starchy_Roots_Transport_N <- calcTotal_Transport_N("Starchy_Roots", calcInstitution_Population)
+Vegetables_Transport_N <- calcTotal_Transport_N("Vegetables", calcInstitution_Population)
+Stimulants_Transport_N <- calcTotal_Transport_N("Stimulants", calcInstitution_Population)
+Oilcrops_Transport_N <- calcTotal_Transport_N("Oilcrops", calcInstitution_Population)
+Sugarcrops_Transport_N <- calcTotal_Transport_N("Sugarcrops", calcInstitution_Population)
+Nuts_Transport_N <- calcTotal_Transport_N("Nuts", calcInstitution_Population)
+Spices_Transport_N <- calcTotal_Transport_N("Spices", calcInstitution_Population)
+Beverages_Transport_N <- calcTotal_Transport_N("Beverages", calcInstitution_Population)
 
 # Print all values
 print(Poultry_Transport_N)
@@ -323,7 +323,7 @@ print(Beverages_Transport_N)
 #Institution - Total N in Food for each Food Category ####
 #'
 #' @param Food_Category Kind of food 
-#' @param Institution_Population Population value for Loyola
+#' @param calcInstitution_Population Population value for Loyola
 #'
 #' @return Total_Food_N Estimated Total N in food for the food category at the institution in kg
 #' @export
@@ -356,7 +356,7 @@ calcTotal_Food_N <- function(Food_Category) {
   )
   
   # Calculate the food N based on Institution Population
-  total_n <- Food_N[Food_Category] * (Institution_Population / UVA_Population)
+  total_n <- Food_N[Food_Category] * (calcInstitution_Population / UVA_Population)
   
   return(total_n)
 }
