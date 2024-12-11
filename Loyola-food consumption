@@ -1,0 +1,441 @@
+#Institution_Population####
+#'
+#' @param Residential_Employees -Number of Residential Employees
+#' @param In_patient_hospital_beds -Number of in-patient hospital beds
+#' @param FTE_students - Full-time equivalent enrollment (annualized FTE)
+#' @param FTE_employees - Full-time equivalent of employees (annualized FTE)
+#' @param FTE_distance_educated_students- Full-time equivalent of distance education students (annualized FTE)
+#'
+#'
+#' @return  
+#' @export 
+#'
+#' @examples
+calcInstitution_Population <- function(Residential_Employees, In_patient_hospital_beds, FTE_students, FTE_employees, FTE_distance_educated_students) {
+  Institution_Population <- (Residential_Employees + In_patient_hospital_beds + FTE_students + FTE_employees - 0.75 * FTE_distance_educated_students)
+  return(Institution_Population)
+}
+
+# Example usage
+
+Institution_Population <- calcInstitution_Population(19, 0, 15308, 2910, 465)
+print(Institution_Population)
+
+#####################################################################################################################################################################################################################################################
+#Institution - Total Virtual N for each Food Category####
+#'
+#' @param Food_Category Kind of food 
+#' @param Institution_Population Population value for Loyola
+#'
+#' @return Estimated total virtual N for the food category at the institution in kg
+#' @export
+#'
+#' @examples
+
+
+calcTotal_Virtual_N <- function(Food_Category) {
+  UVA_Population <- 34056 #constant, University of Virginia population 
+  
+  # Define the Virtual N values as a named vector
+  Virtual_N <- c(
+    Poultry = 4.2,
+    Pigmeat = 4.7,
+    Milk = 3.1,
+    Cheese = 3.1,
+    Eggs = 3.3,
+    Fish = 2.5,
+    Cereals = 0.93,
+    Fruits = 3.4,
+    Starchy_Roots = 2.8,
+    Vegetables = 2.8,
+    Stimulants = 3.4,
+    Oilcrops = 0.41,
+    Sugarcrops = 3.4,
+    Nuts = 0.41,
+    Spices = 2.8
+  )
+  
+  
+  virtual <- Virtual_N[Food_Category] * (Institution_Population / UVA_Population)
+  
+  return(virtual)
+}
+
+# Example:
+Poultry_Virtual_N <- calcTotal_Virtual_N("Poultry")
+Pigmeat_Virtual_N <- calcTotal_Virtual_N("Pigmeat")
+Milk_Virtual_N <- calcTotal_Virtual_N("Milk")
+Cheese_Virtual_N <- calcTotal_Virtual_N("Cheese")
+Eggs_Virtual_N <- calcTotal_Virtual_N("Eggs")
+Fish_Virtual_N <- calcTotal_Virtual_N("Fish")
+Cereals_Virtual_N <- calcTotal_Virtual_N("Cereals")
+Fruits_Virtual_N <- calcTotal_Virtual_N("Fruits")
+Starchy_Roots_Virtual_N <- calcTotal_Virtual_N("Starchy_Roots")
+Vegetables_Virtual_N <- calcTotal_Virtual_N("Vegetables")
+Stimulants_Virtual_N <- calcTotal_Virtual_N("Stimulants")
+Oilcrops_Virtual_N <- calcTotal_Virtual_N("Oilcrops")
+Sugarcrops_Virtual_N <- calcTotal_Virtual_N("Sugarcrops")
+Nuts_Virtual_N <- calcTotal_Virtual_N("Nuts")
+Spices_Virtual_N <- calcTotal_Virtual_N("Spices")
+
+# Print all examples
+print(Poultry_Virtual_N)
+print(Pigmeat_Virtual_N)
+print(Milk_Virtual_N)
+print(Cheese_Virtual_N)
+print(Eggs_Virtual_N)
+print(Fish_Virtual_N)
+print(Cereals_Virtual_N)
+print(Fruits_Virtual_N)
+print(Starchy_Roots_Virtual_N)
+print(Vegetables_Virtual_N)
+print(Stimulants_Virtual_N)
+print(Oilcrops_Virtual_N)
+print(Sugarcrops_Virtual_N)
+print(Nuts_Virtual_N)
+print(Spices_Virtual_N)
+
+
+
+
+
+#####################################################################################################################################################################################################################################################  
+
+
+
+#Institution - Total Transport N for each Food Category####
+#'
+#' @param Food_Category Kind of food 
+#' @param Institution_Population Population value for Loyola
+#'
+#' @return Estimated Total Transport N for the food category at the institution in kg
+#' @export
+#'
+#' @examples
+#' 
+
+
+calcTotal_Transport_N <- function(Food_Category, Institution_Population) {
+  UVA_Population <- 34056 #constant, University of Virginia population 
+  
+  Transport_N <- c(
+    Poultry = 0.00201,
+    Pigmeat = 0.00201,
+    Milk = 0.00201,
+    Cheese = 0.00201,
+    Eggs = 0.00201,
+    Fish = 0.00201,
+    Cereals = 0.00201,
+    Fruits = 0.00201,
+    Starchy_Roots = 0.00201,
+    Vegetables = 0.00201,
+    Stimulants = 0.00201,
+    Oilcrops = 0.00201,
+    Sugarcrops = 0.00201,
+    Nuts = 0.00201,
+    Spices = 0.00201
+  )
+  
+  transport <- Transport_N[Food_Category] * (Institution_Population / UVA_Population)
+  
+  return(transport)
+}
+
+
+#Result
+Poultry_Transport_N <- calcTotal_Transport_N("Poultry", Institution_Population)
+Pigmeat_Transport_N <- calcTotal_Transport_N("Pigmeat", Institution_Population)
+Milk_Transport_N <- calcTotal_Transport_N("Milk", Institution_Population)
+Cheese_Transport_N <- calcTotal_Transport_N("Cheese", Institution_Population)
+Eggs_Transport_N <- calcTotal_Transport_N("Eggs", Institution_Population)
+Fish_Transport_N <- calcTotal_Transport_N("Fish", Institution_Population)
+Cereals_Transport_N <- calcTotal_Transport_N("Cereals", Institution_Population)
+Fruits_Transport_N <- calcTotal_Transport_N("Fruits", Institution_Population)
+Starchy_Roots_Transport_N <- calcTotal_Transport_N("Starchy_Roots", Institution_Population)
+Vegetables_Transport_N <- calcTotal_Transport_N("Vegetables", Institution_Population)
+Stimulants_Transport_N <- calcTotal_Transport_N("Stimulants", Institution_Population)
+Oilcrops_Transport_N <- calcTotal_Transport_N("Oilcrops", Institution_Population)
+Sugarcrops_Transport_N <- calcTotal_Transport_N("Sugarcrops", Institution_Population)
+Nuts_Transport_N <- calcTotal_Transport_N("Nuts", Institution_Population)
+Spices_Transport_N <- calcTotal_Transport_N("Spices", Institution_Population)
+
+# Print all values
+print(Poultry_Transport_N)
+print(Pigmeat_Transport_N)
+print(Milk_Transport_N)
+print(Cheese_Transport_N)
+print(Eggs_Transport_N)
+print(Fish_Transport_N)
+print(Cereals_Transport_N)
+print(Fruits_Transport_N)
+print(Starchy_Roots_Transport_N)
+print(Vegetables_Transport_N)
+print(Stimulants_Transport_N)
+print(Oilcrops_Transport_N)
+print(Sugarcrops_Transport_N)
+print(Nuts_Transport_N)
+print(Spices_Transport_N)
+
+
+
+#####################################################################################################################################################################################################################################################  
+#Institution - Total N Released by production#### 
+#'
+#' @param Total_Transport_N total Transport N for the food category at the institution in kg
+#' @param Total_Virtual_N total Transport N for the food category at the institution in kg
+#'
+#' @return 
+#' @export
+#'
+#' @examples
+#' 
+
+calcTotal_N_Released <- function(Food_Category) {
+  total_virtual_N <- c(
+    Poultry = "Poultry_Virtual_N",
+    Pigmeat = "Pigmeat_Virtual_N",
+    Milk = "Milk_Virtual_N", 
+    Cheese = "Cheese_Virtual_N",
+    Eggs = "Eggs_Virtual_N",
+    Fish = "Fish_Virtual_N", 
+    Cereals = "Cereals_Virtual_N", 
+    Fruits = "Fruits_Virtual_N", 
+    Starchy_Roots = "Starchy_Roots_Virtual_N", 
+    Vegetables = "Vegetables_Virtual_N",
+    Stimulants = "Stimulants_Virtual_N", 
+    Oilcrops = "Oilcrops_Virtual_N", 
+    Sugarcrops = "Sugarcrops_Virtual_N",
+    Nuts = "Nuts_Virtual_N" ,
+    Spices = "Spices_Virtual_N"
+  )
+  total_transport_N <- c(
+    Poultry = "Poultry_Transport_N",
+    Pigmeat = "Pigmeat_Transport_N",
+    Milk = "Milk_Transport_N", 
+    Cheese = "Cheese_Transport_N",
+    Eggs = "Eggs_Transport_N",
+    Fish = "Fish_Transport_N", 
+    Cereals = "Cereals_Transport_N", 
+    Fruits = "Fruits_Transport_N", 
+    Starchy_Roots = "Starchy_Roots_Transport_N", 
+    Vegetables = "Vegetables_Transport_N",
+    Stimulants = "Stimulants_Transport_N", 
+    Oilcrops = "Oilcrops_Transport_N", 
+    Sugarcrops = "Sugarcrops_Transport_N",
+    Nuts = "Nuts_Transport_N" ,
+    Spices = "Spices_Transport_N"
+  )
+  
+  total_n_released <- get(total_virtual_N[Food_Category])+get(total_transport_N[Food_Category])
+  
+  return(total_n_released)
+}
+
+#Results
+Poultry_Total_N_Released <- calcTotal_N_Released("Poultry")
+Pigmeat_Total_N_Released <- calcTotal_N_Released("Pigmeat")
+Milk_Total_N_Released <- calcTotal_N_Released("Milk")
+Cheese_Total_N_Released <- calcTotal_N_Released("Cheese")
+Eggs_Total_N_Released <- calcTotal_N_Released("Eggs")
+Fish_Total_N_Released <- calcTotal_N_Released("Fish")
+Cereals_Total_N_Released <- calcTotal_N_Released("Cereals")
+Fruits_Total_N_Released <- calcTotal_N_Released("Fruits")
+Starchy_Roots_Total_N_Released <- calcTotal_N_Released("Starchy_Roots")
+Vegetables_Total_N_Released <- calcTotal_N_Released("Vegetables")
+Stimulants_Total_N_Released <- calcTotal_N_Released("Stimulants")
+Oilcrops_Total_N_Released <- calcTotal_N_Released("Oilcrops")
+Sugarcrops_Total_N_Released <- calcTotal_N_Released("Sugarcrops")
+Nuts_Total_N_Released <- calcTotal_N_Released("Nuts")
+Spices_Total_N_Released <- calcTotal_N_Released("Spices")
+
+# Print the results
+print(Poultry_Total_N_Released)
+print(Pigmeat_Total_N_Released)
+print(Milk_Total_N_Released)
+print(Cheese_Total_N_Released)
+print(Eggs_Total_N_Released)
+print(Fish_Total_N_Released)
+print(Cereals_Total_N_Released)
+print(Fruits_Total_N_Released)
+print(Starchy_Roots_Total_N_Released)
+print(Vegetables_Total_N_Released)
+print(Stimulants_Total_N_Released)
+print(Oilcrops_Total_N_Released)
+print(Sugarcrops_Total_N_Released)
+print(Nuts_Total_N_Released)
+print(Spices_Total_N_Released)
+ 
+
+############################################################################################
+#Institution - Total N in Food for each Food Category ####
+#'
+#' @param Food_Category Kind of food 
+#' @param Institution_Population Population value for Loyola
+#'
+#' @return Total_Food_N Estimated Total N in food for the food category at the institution in kg
+#' @export
+#'
+#' @examples
+#' 
+calcTotal_Food_N <- function(Food_Category) {
+  UVA_Population <- 34056 # constant, University of Virginia population 
+  
+  # Define the Total N values for each food category as a named vector
+  Food_N <- c(
+    Poultry = 2.78176,
+    Pigmeat = 2.8251429,
+    Milk = 0.6327111,
+    Cheese = 3.0096,
+    Eggs = 1.8549333,
+    Fish = 2.87104,
+    Cereals = 1.48224,
+    Fruits = 0.0784,
+    Starchy_Roots = 0.0028368,
+    Vegetables = 0.0028368,
+    Stimulants = 0.0164,
+    Oilcrops = 0.0005904,
+    Sugarcrops = 0.000512,
+    Nuts = 0.0296864,
+    Spices = 0.0088144
+  )
+  
+  # Calculate the food N based on Institution Population
+  total_n <- Food_N[Food_Category] * (Institution_Population / UVA_Population)
+  
+  return(total_n)
+}
+
+#Results
+Poultry_Total_Food_N <- calcTotal_Food_N("Poultry")
+Pigmeat_Total_Food_N <- calcTotal_Food_N("Pigmeat")
+Milk_Total_Food_N <- calcTotal_Food_N("Milk")
+Cheese_Total_Food_N <- calcTotal_Food_N("Cheese")
+Eggs_Total_Food_N <- calcTotal_Food_N("Eggs")
+Fish_Total_Food_N <- calcTotal_Food_N("Fish")
+Cereals_Total_Food_N <- calcTotal_Food_N("Cereals")
+Fruits_Total_Food_N <- calcTotal_Food_N("Fruits")
+Starchy_Roots_Total_Food_N <- calcTotal_Food_N("Starchy_Roots")
+Vegetables_Total_Food_N <- calcTotal_Food_N("Vegetables")
+Stimulants_Total_Food_N <- calcTotal_Food_N("Stimulants")
+Oilcrops_Total_Food_N <- calcTotal_Food_N("Oilcrops")
+Sugarcrops_Total_Food_N <- calcTotal_Food_N("Sugarcrops")
+Nuts_Total_Food_N <- calcTotal_Food_N("Nuts")
+Spices_Total_Food_N <- calcTotal_Food_N("Spices")
+
+
+# Print each result
+print(Poultry_Total_Food_N)
+print(Pigmeat_Total_Food_N)
+print(Milk_Total_Food_N)
+print(Cheese_Total_Food_N)
+print(Eggs_Total_Food_N)
+print(Fish_Total_Food_N)
+print(Cereals_Total_Food_N)
+print(Fruits_Total_Food_N)
+print(Starchy_Roots_Total_Food_N)
+print(Vegetables_Total_Food_N)
+print(Stimulants_Total_Food_N)
+print(Oilcrops_Total_Food_N)
+print(Sugarcrops_Total_Food_N)
+print(Nuts_Total_Food_N)
+print(Spices_Total_Food_N)
+
+
+
+
+
+###########################################################################################
+
+
+#Institution - Total Food Waste N for each Food Category ####
+#' 
+#' @param Total_Food_N total food mass for the food category in kg 
+#' @param FAO_Factor FAO food waste factors in percentages (converted to decimal form for function)
+#' 
+#' @return FoodWaste_N total nitrogen in food ordered in kg 
+#' @export 
+#' 
+#' @examples 
+#'  
+
+
+
+calc_Foodwaste_N <- function(Food_Category){ 
+  
+  total_food_N <- c( 
+    Poultry= "Poultry_Total_Food_N", 
+    Pigmeat = "Pigmeat_Total_Food_N", 
+    Milk = "Milk_Total_Food_N", 
+    Cheese = "Cheese_Total_Food_N", 
+    Eggs = "Eggs_Total_Food_N", 
+    Fish = "Fish_Total_Food_N", 
+    Cereals = "Cereals_Total_Food_N", 
+    Fruits = "Fruits_Total_Food_N", 
+    Starchy_Roots = "Starchy_Roots_Total_Food_N", 
+    Vegetables = "Vegetables_Total_Food_N", 
+    Stimulants= "Stimulants_Total_Food_N", 
+    Oilcrops = "Oilcrops_Total_Food_N", 
+    Sugarcrops = "Sugarcrops_Total_Food_N", 
+    Nuts = "Nuts_Total_Food_N", 
+    Spices = "Spices_Total_Food_N" 
+  ) 
+  
+  FAO_foodfactors <-c( 
+    Poultry = 0.15, 
+    Pigmeat = 0.15, 
+    Milk = 0.15, 
+    Cheese = 0.15, 
+    Eggs = 0.15, 
+    Fish = 0.39, 
+    Cereals = 0.28, 
+    Fruits = 0.37, 
+    Starchy_Roots = 0.37, 
+    Vegetables = 0.37, 
+    Stimulants = 0.37, 
+    Oilcrops = 0.05, 
+    Sugarcrops = 0.37, 
+    Nuts = 0.05, 
+    Spices = 0.37 
+    
+  ) 
+  
+  Foodwaste_N <- get(total_food_N[Food_Category]) * FAO_foodfactors[Food_Category] 
+  
+  return(Foodwaste_N) 
+  
+} 
+
+Poultry_Foodwaste_N <- calc_Foodwaste_N("Poultry") 
+Pigmeat_Foodwaste_N <- calc_Foodwaste_N("Pigmeat") 
+Milk_Foodwaste_N <- calc_Foodwaste_N("Milk") 
+Cheese_Foodwaste_N <- calc_Foodwaste_N("Cheese") 
+Eggs_Foodwaste_N <- calc_Foodwaste_N("Eggs") 
+Fish_Foodwaste_N <- calc_Foodwaste_N("Fish") 
+Cereals_Foodwaste_N <- calc_Foodwaste_N("Cereals") 
+Fruits_Foodwaste_N <-calc_Foodwaste_N("Fruits") 
+StarchyRoots_Foodwaste_N <- calc_Foodwaste_N("Starchy_Roots") 
+Vegetables_Foodwaste_N <- calc_Foodwaste_N("Vegetables") 
+Stimulants_Foodwaste_N <- calc_Foodwaste_N("Stimulants") 
+Oilcrops_Foodwaste_N <- calc_Foodwaste_N("Oilcrops") 
+Sugarcrops_Foodwaste_N <- calc_Foodwaste_N("Sugarcrops") 
+Nuts_Foodwaste_N <- calc_Foodwaste_N("Nuts") 
+Spices_Foodwaste_N <- calc_Foodwaste_N("Spices") 
+
+
+
+
+print(Poultry_Foodwaste_N) 
+print(Pigmeat_Foodwaste_N) 
+print(Milk_Foodwaste_N)  
+print(Cheese_Foodwaste_N) 
+print(Eggs_Foodwaste_N) 
+print(Fish_Foodwaste_N) 
+print(Cereals_Foodwaste_N) 
+print(Fruits_Foodwaste_N) 
+print(StarchyRoots_Foodwaste_N)  
+print(Vegetables_Foodwaste_N) 
+print(Stimulants_Foodwaste_N)  
+print(Oilcrops_Foodwaste_N) 
+print(Sugarcrops_Foodwaste_N) 
+print(Nuts_Foodwaste_N) 
+print(Spices_Foodwaste_N) 
