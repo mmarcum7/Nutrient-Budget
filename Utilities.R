@@ -43,7 +43,7 @@ print(Coal_Unit_Type)
 #'
 n2o_emission_factor <- function(fuel_type) {
   if (fuel_type == "Mix") {
-    return(0.000009)
+     return(0.000009)
   } else if (fuel_type == "Distillate Oil (#1-4)") {
     return(0.000087)
   } else if (fuel_type == "Natural Gas") {
@@ -51,8 +51,10 @@ n2o_emission_factor <- function(fuel_type) {
   } else if (fuel_type == "Propane") {
     return(0.000055)
   } else if (fuel_type == "Coal") {
-    return(0.029950)
+    return(0.030202)
   } else if (fuel_type == "Renewables") {
+    return(0)
+  } else if (fuel_type == "Wind") {
     return(0)
   }
 }
@@ -114,7 +116,6 @@ print(Renewables_n_released_as_N2O_on_site)
 ###################################################################################################################################
 #' NOx Emission Factors Utilities - Source: On-site stationary 
 #'
-#'
 #' @param fuel_type - Type of fuel (Mix, Distillate Oil (#1-4), Natural Gas, Propane, Coal, Renewables)
 #'
 #' @return This function returns the emission factor of NOx associated with a given fuel type.
@@ -124,37 +125,33 @@ print(Renewables_n_released_as_N2O_on_site)
 nox_emission_factor_on_site <- function(fuel_type) {
 
   if (fuel_type == "Natural Gas") {
-    return(0.002917)
+    return(0.03414900)
   } else if (fuel_type == "Coal") {
-    return(11)
+    return(9.45812900)
   } else if (fuel_type == "Nuclear") {
     return(0)
   } else if (fuel_type == "Distillate Oil (#1-4)") {
-    return(0.004536)
+    return(0.00515400)
   } else if (fuel_type == "Propane") {
-    return(0.014000)
+    return(0.00315200)
   } else if (fuel_type == "Renewables") {
     return(0)
-  }
-
+  } 
 }
-#Examples
-Mix_Nox_Emission_Factor_on_site <- nox_emission_factor("Mix")
-Distillate_Oil_Nox_Emission_Factor_on_site <- nox_emission_factor("Distillate Oil (#1-4)")
-Natural_Gas_Nox_Emission_Factor_on_site <- nox_emission_factor("Natural Gas")
-Propane_Nox_Emission_Factor_on_site <- nox_emission_factor("Propane")
-Coal_Nox_Emission_Factor_on_site <- nox_emission_factor("Coal")
-Renewables_Nox_Emission_Factor_on_site <- nox_emission_factor("Renewables")
+
+# Examples
+Distillate_Oil_Nox_Emission_Factor_on_site <- nox_emission_factor_on_site("Distillate Oil (#1-4)")
+Natural_Gas_Nox_Emission_Factor_on_site <- nox_emission_factor_on_site("Natural Gas")
+Propane_Nox_Emission_Factor_on_site <- nox_emission_factor_on_site("Propane")
+Coal_Nox_Emission_Factor_on_site <- nox_emission_factor_on_site("Coal")
+Renewables_Nox_Emission_Factor_on_site <- nox_emission_factor_on_site("Renewables")
 
 # Printing the results for all fuel types 
-print(Mix_Nox_Emission_Factor_on_site) 
 print(Distillate_Oil_Nox_Emission_Factor_on_site) 
 print(Natural_Gas_Nox_Emission_Factor_on_site) 
 print(Propane_Nox_Emission_Factor_on_site) 
 print(Coal_Nox_Emission_Factor_on_site) 
 print(Renewables_Nox_Emission_Factor_on_site)
-
-
 
 ###################################################################################################################################
 
@@ -168,33 +165,18 @@ print(Renewables_Nox_Emission_Factor_on_site)
 #' @export
 #'
 NOx_emissions_on_site <- function(fuel_type, amount) {
-  # Get the NOx emission factor based on fuel type
-  emission_factor <- nox_emission_factor(fuel_type)
-  
-  # Calculate the utility N released as NOx
+  emission_factor <- nox_emission_factor_on_site(fuel_type)
   nox_released <- amount * emission_factor
-  
   return(nox_released)
 }
 
-# Example usage with an amount of 1000 for each fuel type
-Mix_Nox_emissions_on_site <- NOx_emissions_on_site("Mix", 1000)
-Distillate_Oil_Nox_emissions_on_site <- NOx_emissions_on_site("Distillate Oil (#1-4)", 1000)
-Natural_Gas_Nox_emissions_on_site <- NOx_emissions_on_site("Natural Gas", 1000)
-Propane_Nox_emissions_on_site <- NOx_emissions_on_site("Propane", 1000)
-Coal_Nox_emissions_on_site <- NOx_emissions_on_site("Coal", 1000)
-Renewables_Nox_emissions_on_site <- NOx_emissions_on_site("Renewables", 1000)
+# Example 
+Distillate_Oil_Nox_emissions_on_site <- NOx_emissions_on_site("Distillate Oil (#1-4)", 354)
+Natural_Gas_Nox_emissions_on_site <- NOx_emissions_on_site("Natural Gas", 231195.8)
 
 # Print the results
-print(Mix_Nox_emissions_on_site) 
 print(Distillate_Oil_Nox_emissions_on_site) 
-print(Natural_Gas_Nox_emissions_on_site) 
-print(Propane_Nox_emissions_on_site) 
-print(Coal_Nox_emissions_on_site) 
-print(Renewables_Nox_emissions_on_site)
-
-
-
+print(Natural_Gas_Nox_emissions_on_site)
 
 
 ###################################################################################################################################
