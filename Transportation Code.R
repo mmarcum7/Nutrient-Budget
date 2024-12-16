@@ -200,7 +200,10 @@ print(Commuting_facultybus_fuelconsumption)
 #' @param Vehicle_type - mode of transportation
 #' @param Fuel_volume - in gallons, the amount of gasoline held in the vehicle
 #' @param Fuel_Consumption - calculated for each commuter type before, amount of gasoline used in travel to commute
-#'
+#' @param n2o_emissionfactor_I - Loyola University of Chicago's emission factors for Institute vehicles in N2O kg / US gallon
+#' @param n2o_emissionfactor_C - Loyola University of Chicago's emission factors for Commuting vehicles in N2O kg / per passenger mile; converted to kg N2O per US gallon in function
+#' @param fueleffiecncy_factors - average fuel efficiency factors for Commuting vehicles provided by UVA in miles per gallon by fuel type 
+#' 
 #' @return Amount of N2O Released in kg
 #' @export  Total_N2O_Released
 #'
@@ -209,27 +212,42 @@ print(Commuting_facultybus_fuelconsumption)
 
 calc_N2O <- function(vehicle_type) {
   
-  fuelemmission_factor <- c(
-    institute_car = 0.0006,
-    institute_van = 0.0006,
-    institute_bus = 0.00649,
-    institute_biodieselbus = 0.000675,
-    commuting_studentalone = 0.0006,
-    commuting_studentcarpool = 0.0006,
-    commuting_studentbus = 0.003,
-    commuting_staffalone = 0.006, 
-    commuting_staffcarpool = 0.006, 
-    commuting_staffbus = 0.003,
-    commuting_facultyalone = 0.0006,
-    commuting_facultycarpool = 0.0006,
-    commuting_facultybus = 0.003
+  n2o_emissionfactor_I <- c(
+    institute_e85 = 0.001191,
+    institute_gasoline = 0.000301,
+    institute_diesel =00031,
+    institute_biodiesel = 0.000031
+)
+  
+  n2o_emissionfactor_C <- c(
+    commuting_studentcar = 0.0000115,
+    commuting_studentcarpool = 0.00000577,
+    commuting_studentbus = 0.000000198,
+    commuting_staffalone = 0.0000115, 
+    commuting_staffcarpool = 0.00000577, 
+    commuting_staffbus = 0.000000198,
+    commuting_facultyalone = 0.0000115,
+    commuting_facultycarpool = 0.00000577,
+    commuting_facultybus = 0.000000198
+)
+  
+  fuelefficiency_factors <- c(
+    commuting_studentalone = 24.2,
+    commuting_studentcarpool = 24.2,
+    commuting_studentbus = 39.7,
+    commuting_staffalone = 22.1,
+    commuting_staffcarpool = 22.1,
+    commuting_staffbus = 39.7,
+    commuting_facultyalone = 22.1,
+    commuting_facultycarpool = 22.1,
+    commuting_facultybus = 39.7
   )
   
   fuelvolume <- c(
-    institute_car = 100,
-    institute_van = 100,
-    institute_bus = 100,
-    institute_biodieselbus = 100
+    institute_e85 = 100,
+    institute_gasoline = 100,
+    institute_diesel = 100,
+    institute_biodiesel = 100
   )
   
   fuelconsumption <- c(
@@ -244,12 +262,12 @@ calc_N2O <- function(vehicle_type) {
     commuting_facultybus = "Commuting_facultybus_fuelconsumption"
     
   )
-  if(vehicle_type == "institute_car" ||
-     vehicle_type == "institute_van" ||
-     vehicle_type == "institute_bus" ||
-     vehicle_type == "institute_biodieselbus"){
+  if(vehicle_type == "institute_e85" ||
+     vehicle_type == "institute_gasoline" ||
+     vehicle_type == "institute_diesel" ||
+     vehicle_type == "institute_biodiesel"){
     
-    N2O_released <- fuelemmission_factor[vehicle_type] * fuelvolume[vehicle_type]
+    N2O_released <- n2o_emissionfactor[vehicle_type] * fuelvolume[vehicle_type]
     
  } else if (vehicle_type == "commuting_studentalone" ||
       vehicle_type == "commuting_studentcarpool"     ||
@@ -261,16 +279,16 @@ calc_N2O <- function(vehicle_type) {
       vehicle_type == "commuting_facultycarpool"     ||
       vehicle_type == "commuting_facultybus") {
       
-     N2O_released <- fuelemmission_factor[vehicle_type] * get(fuelconsumption[vehicle_type])
+     N2O_released <- (n2o_emissionfactor[vehicle_type] / fuelefficiency_factors[vehicle_type]) * get(fuelconsumption[vehicle_type])
       
   return(N2O_released)  
 }
 }
 
-Institute_car_N2O <- calc_N2O("institute_car")
-Institute_van_N2O <- calc_N2O("institute_van")
-Institute_bus_N2O <- calc_N2O("institute_bus")
-Institute_biodieselbus_N2O <- calc_N2O("institute_biodieselbus")
+Institute_e85_N2O <- calc_N2O("institute_e85")
+Institute_gasoline_N2O <- calc_N2O("institute_gasoline")
+Institute_diesel_N2O <- calc_N2O("institute_diesel")
+Institute_biodiesel_N2O <- calc_N2O("institute_biodiesel")
 Commuting_studentalone_N2O <- calc_N2O("commuting_studentalone")
 Commuting_studentcarpool_N2O <- calc_N2O("commuting_studentcarpool")
 Commuting_studentbus_N2O <- calc_N2O("commuting_studentbus")
@@ -281,10 +299,10 @@ Commuting_facultyalone_N2O <-calc_N2O("commuting_facultyalone")
 Commuting_facultycarpool_N2O <-calc_N2O("commuting_facultycarpool")
 Commuting_facultybus_N2O <-calc_N2O("commuting_facultybus")
 
-print(Institute_car_N2O)
-print(Institute_van_N2O)
-print(Institute_bus_N2O)
-print(Institute_biodieselbus_N2O)
+print(Institute_e85_N2O)
+print(Institute_gasoline_N2O)
+print(Institute_diesel_N2O)
+print(Institute_biodiesel_N2O)
 print(Commuting_studentalone_N2O)
 print(Commuting_studentcarpool_N2O)
 print(Commuting_studentbus_N2O)
@@ -299,7 +317,7 @@ print(Commuting_facultybus_N2O)
 
 #Institution - Calculate the Total N2O released from vehicles
 Total_N2O_Released <- sum(
-Institute_car_N2O, Institute_van_N2O, Institute_bus_N2O, Institute_biodieselbus_N2O,
+Institute_e85_N2O, Institute_gasoline_N2O, Institute_diesel_N2O, Institute_biodiesel_N2O,
 Commuting_studentalone_N2O, Commuting_studentcarpool_N2O, Commuting_studentbus_N2O,
 Commuting_staffalone_N2O,Commuting_staffcarpool_N2O , Commuting_staffbus_N2O,
 Commuting_facultyalone_N2O, Commuting_facultycarpool_N2O, Commuting_facultybus_N2O
@@ -313,10 +331,12 @@ print(Total_N2O_Released)
 #' Title:Calculate N Released as NOx
 #'
 #' @param fuel_consumption -fuel consumption in gallons
-#' @param NOx_emission_factor -emission factor for NOx in kg NOx/mi 
-#' @param average_fuel_input Average fuel Efficiency in miles per gallon
-#'
-#' @return Total NOx released in grams
+#' @param nox_emissionfactor_I - Loyola University of Chicago's emission factors for Institute vehicles in NOx kg / US gallon
+#' @param nox_emissionfactor_C - Loyola University of Chicago's emission factors for Commuting vehicles in NOx kg / per passenger mile
+#' @param average_fuel_input average fuel efficiency factors for Commuting vehicles provided by UVA in miles per gallon by fuel type 
+#' @param individuals - numbers of passengers
+#' 
+#' @return Total NOx released in kg
 #' @export
 #'
 #' @examples
@@ -324,27 +344,30 @@ print(Total_N2O_Released)
 
 calc_NOx <- function (vehicle_type){
    
-  nox_emmissionfactor <-c(
-     institute_car = 0.000593,
-     institute_van = 0.000593,
-     institute_bus = 0.0028,
-     institute_biodieselbus = 0.00649,
-     commuting_studentalone = 0.00059,
-     commuting_studentcarpool = 0.00059,
-     commuting_studentbus = 0.00649,
-     commuting_staffalone = 0.00059,
-     commuting_staffcarpool = 0.00059,
-     commuting_staffbus = 0.00649,
-     commuting_facultyalone = 0.00059,
-     commuting_facultycarpool = 0.00059,
-     commuting_facultybus = 0.00649
-   )
+  nox_emissionfactor_I <-c(
+     institute_e85 = 0.01146,
+     institute_gasoline = 0.011777,
+     institute_diesel = 0.037943,
+     institute_biodiesel = 0.037943
+)
+  
+ nox_emissionfactor_C <-c(
+     commuting_studentalone = 0.000489,
+     commuting_studentcarpool = 0.000245,
+     commuting_studentbus = 0.000244,
+     commuting_staffalone = 0.000489,
+     commuting_staffcarpool = 0.000245,
+     commuting_staffbus = 0.000244,
+     commuting_facultyalone = 0.000489,
+     commuting_facultycarpool = 0.000245,
+     commuting_facultybus = 0.000244
+)
   
   averagefuelefficiency <- c(
-    institute_car = 22.1,
-    institute_van = 22.1,
-    institute_bus = 6.9,
-    institute_biodieselbus = 0.45,
+    Institute_e85 = 22.1,
+    institute_gasoline = 22.1,
+    institute_diesel = 6.9,
+    institute_biodiesel = 0.45,
     commuting_studentalone = 24.2,
     commuting_studentcarpool = 24.2,
     commuting_studentbus = 31.9,
@@ -357,10 +380,10 @@ calc_NOx <- function (vehicle_type){
   )
    
   fuelvolume <- c(
-    institute_car = 100,
-    institute_van = 100,
-    institute_bus = 100,
-    institute_biodieselbus = 100
+    institute_e85 = 100,
+    institute_gasoline = 100,
+    institute_diesel = 100,
+    institute_biodiesel = 100
   )
   
   fuelconsumption <- c(
@@ -373,15 +396,26 @@ calc_NOx <- function (vehicle_type){
     commuting_facultyalone = "Commuting_faculty_fuelconsumption",
     commuting_facultycarpool = "Commuting_facultycarpool_fuelconsumption", 
     commuting_facultybus = "Commuting_facultybus_fuelconsumption"
-  )   
+  ) 
+  
+  individuals <-c(
+    e85 = 100
+    institute_e85 = 100,
+    institute_gasoline = 100,
+    institute_diesel = 100,
+    institute_biodiesel = 100
+  )
+  
+ 
+  
   
 
-  if(vehicle_type == "institute_car" ||
-     vehicle_type == "institute_van" ||
-     vehicle_type == "institute_bus" ||
-     vehicle_type == "institute_biodieselbus"){
+  if(vehicle_type == "institute_e85" ||
+     vehicle_type == "institute_gasoline" ||
+     vehicle_type == "institute_diesel" ||
+     vehicle_type == "institute_biodiesel"){
   
-  NOx_released <- fuelvolume[vehicle_type] * nox_emmissionfactor[vehicle_type] * averagefuelefficiency[vehicle_type]
+  NOx_released <- fuelvolume[vehicle_type] *  (averagefuelefficiency[vehicle_type] * nox_emissionfactor[vehicle_type] / individuals[vehicle/type])
   
 }  else if (vehicle_type == "commuting_studentalone" ||
             vehicle_type == "commuting_studentcarpool"     ||
@@ -393,15 +427,15 @@ calc_NOx <- function (vehicle_type){
             vehicle_type == "commuting_facultycarpool"     ||
             vehicle_type == "commuting_facultybus") {
   
-  NOx_released <- get(fuelconsumption[vehicle_type]) * nox_emmissionfactor[vehicle_type] * averagefuelefficiency[vehicle_type]
+  NOx_released <- get(fuelconsumption[vehicle_type]) * nox_emissionfactor[vehicle_type] * averagefuelefficiency[vehicle_type]
   
   return(NOx_released)  
 }
 }
-Institute_car_NOx <- calc_NOx("institute_car")
-Institute_van_NOx <- calc_NOx("institute_van")
-Institute_bus_NOx <- calc_NOx("institute_bus")
-Institute_biodieselbus_NOx <- calc_NOx("institute_biodieselbus")
+Institute_car_NOx <- calc_NOx("institute_e85")
+Institute_van_NOx <- calc_NOx("institute_gasoline")
+Institute_bus_NOx <- calc_NOx("institute_diesel")
+Institute_biodieselbus_NOx <- calc_NOx("institute_biodiesel")
 Commuting_studentalone_NOx <- calc_NOx("commuting_studentalone")
 Commuting_studentcarpool_NOx <- calc_NOx("commuting_studentcarpool")
 Commuting_studentbus_NOx <- calc_NOx("commuting_studentbus")
@@ -412,10 +446,10 @@ Commuting_facultyalone_NOx <-calc_NOx("commuting_facultyalone")
 Commuting_facultycarpool_NOx <-calc_NOx("commuting_facultycarpool")
 Commuting_facultybus_NOx <-calc_NOx("commuting_facultybus")
 
-print(Institute_car_NOx)
-print(Institute_van_NOx)
-print(Institute_bus_NOx)
-print(Institute_biodieselbus_NOx)
+print(Institute_e85_NOx)
+print(Institute_gasoline_NOx)
+print(Institute_diesel_NOx)
+print(Institute_biodiesel_NOx)
 print(Commuting_studentalone_NOx)
 print(Commuting_studentcarpool_NOx)
 print(Commuting_studentbus_NOx)
@@ -429,7 +463,7 @@ print(Commuting_facultybus_NOx)
 
 #Calculate the Total NOx released for all vehicles         
 Total_NOx_Released <- sum(
-Institute_car_NOx, Institute_van_NOx, Institute_bus_NOx, Institute_biodieselbus_NOx,
+Institute_e85_NOx, Institute_gasoline_NOx, Institute_diesel_NOx, Institute_biodiesel_NOx,
 Commuting_studentalone_NOx, Commuting_studentcarpool_NOx, Commuting_studentbus_NOx,
 Commuting_staffalone_NOx, Commuting_staffcarpool_NOx, Commuting_staffbus_NOx,
 Commuting_facultyalone_NOx, Commuting_facultycarpool_NOx, Commuting_facultybus_NOx
